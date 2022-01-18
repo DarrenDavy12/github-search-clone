@@ -2,8 +2,41 @@ import React from 'react';
 import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 import { MdBusiness, MdLocationOn, MdLink } from 'react-icons/md';
+import reactRouterDom from 'react-router-dom';
 const Card = () => {
-  return <h2>card component</h2>;
+  const { githubUser } = React.useContext(GithubContext);
+  const { 
+    avatar_url, 
+    html_url, 
+    name, 
+    company, 
+    blog, 
+    bio, 
+    location, 
+    twitter_username
+  } = githubUser;
+  return ( 
+  <Wrapper>
+    <header>
+      <img src={avatar_url} alt={name}/>
+      <div>
+        <h4>{name || 'Darren Davy'}</h4>
+        <p>@{twitter_username || 'john doe'}</p>
+      </div>
+      <a href={html_url}>follow</a>
+    </header>
+    <p className='bio'>{bio}</p>
+    <div className='links'>
+    <p>
+    <MdBusiness></MdBusiness> {company || 'me'}
+    </p>
+     <p>
+    <MdLocationOn></MdLocationOn> {location || 'United Kingdom'}
+    </p>
+    <a href={`https://${blog}`}><MdLink></MdLink>{blog || 'Link to blog'}</a>
+    </div>
+  </Wrapper>
+  );
 };
 const Wrapper = styled.article`
   background: var(--clr-white);
